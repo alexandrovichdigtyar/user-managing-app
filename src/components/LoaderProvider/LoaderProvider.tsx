@@ -1,10 +1,26 @@
 import { loadingAtom } from "@/state/store";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useAtom } from "jotai";
-import React, { ReactNode } from "react";
+import { Router } from "next/router";
+import { ReactNode, useEffect } from "react";
 
 const LoaderProvider = ({ children }: { children: ReactNode }) => {
-    const [isLoading, _] = useAtom(loadingAtom);
+    const [isLoading, setIsLoading] = useAtom(loadingAtom);
+
+    useEffect(() => {
+        const startLoading = () => setIsLoading(true);
+        const endLoading = () => setIsLoading(false);
+
+        Router.events.on('routeChangeStart', startLoading);
+        Router.events.on('routeChangeComplete', endLoading);
+        Router.events.on('routeChangeError', endLoading);
+
+        return () => {
+            Router.events.off('routeChangeStart', startLoading);
+            Router.events.off('routeChangeComplete', endLoading);
+            Router.events.off('routeChangeError', endLoading);
+        };
+    }, []);
 
     return (
         <>

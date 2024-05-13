@@ -11,7 +11,7 @@ import Button from "../Button/Button";
 interface DataTableProps {
     columns: Column[]
     data: UserData[];
-    actionColumns: ActionColumn[];
+    actionColumns?: ActionColumn[];
 }
 
 const DataTable = ({ columns, data, actionColumns }: DataTableProps) => {

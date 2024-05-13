@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import styled from "styled-components";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
+import { useRouter } from "next/navigation";
 
 interface DeleteModalProps {
     userName: string;
@@ -13,7 +14,7 @@ interface DeleteModalProps {
 const DeleteModal = ({ userName }: DeleteModalProps) => {
     const [deleteItemId, setdDleteItemId] = useAtom(deleteItemIdAtom);
 
-    const title = `Do you want to delete user:  ${userName} ?`;
+    const title = `Do you want to delete user: ${userName} ?`;
 
     const deleteUser = useDeleteUser();
 

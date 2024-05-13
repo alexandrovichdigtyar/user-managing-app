@@ -1,5 +1,3 @@
-"use client"
-
 import { useAddUser, useUpdateUser, useUser } from "@/queries/users";
 import { AppRoutes, CreatingUser, UserData } from "@/types/types";
 import { userSchema } from "@/utils/userValidationSchema";
@@ -17,6 +15,13 @@ interface EditModalProps {
     itemId?: string;
 }
 
+const INITIAL_VALUES = {
+    name: "",
+    userName: "",
+    email: "",
+    city: ""
+}
+
 const EditModal = ({ itemId }: EditModalProps) => {
     const title = itemId ? "Edit" : "Add";
 
@@ -29,7 +34,7 @@ const EditModal = ({ itemId }: EditModalProps) => {
 
     const { formState: { errors }, handleSubmit, control, reset } = useForm({
         resolver: yupResolver(userSchema),
-        defaultValues: { name: "", userName: "", email: "", city: "" },
+        defaultValues: INITIAL_VALUES,
     });
 
     const onCancel = () => router.push(AppRoutes.home);

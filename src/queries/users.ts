@@ -5,17 +5,18 @@ import axios from 'axios';
 import { useAtom } from 'jotai';
 import { Flip, toast } from 'react-toastify';
 
-const apiURL = `https://${process.env.API_TOKEN}.mockapi.io/usersList`;
+export const apiURL = `https://${process.env.API_TOKEN}.mockapi.io/usersList`;
 
 const RETRY_COUNT = 2;
 
-export const useUsers = () => {
+export const useUsers = (initialData: UserData[]) => {
   return useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const { data } = await axios.get(apiURL);
       return data;
     },
+    initialData,
     retry: RETRY_COUNT,
   });
 }
